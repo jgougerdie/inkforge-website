@@ -3,6 +3,8 @@ import { categories } from "@/data/categories";
 import { articlesByCategory } from "@/data/articles";
 import ArticleCard from "@/components/ArticleCard";
 import TrustRow from "@/components/TrustRow";
+import TiltCard from "@/components/TiltCard";
+import HeroOrb from "@/components/HeroOrb";
 
 const keywordColor: Record<string, string> = {
   "global marketing": "#4338CA",
@@ -18,7 +20,8 @@ export default function Home() {
     <>
       {/* Hero — single clear headline + one primary action, sized and spaced
           per the audit's Fix #1 (56px/28px H1, action within first 600px). */}
-      <section className="container-page flex flex-col items-center pb-16 pt-[72px] text-center sm:pb-24">
+      <section className="container-page relative flex flex-col items-center pb-16 pt-[72px] text-center sm:pb-24">
+        <HeroOrb />
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-paper-soft px-4 py-1.5 text-sm font-medium text-ink-muted">
           <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />
           Business articles that respect your time
@@ -79,10 +82,10 @@ export default function Home() {
               { label: "Min read", value: "~5" },
               { label: "Fluff", value: "0" },
             ].map((stat) => (
-              <div key={stat.label} className="rounded-2xl border border-border bg-white p-6 shadow-card">
+              <TiltCard key={stat.label} className="rounded-2xl border border-border bg-white p-6 shadow-card">
                 <dt className="text-sm font-medium text-ink-muted">{stat.label}</dt>
                 <dd className="mt-1 text-3xl font-extrabold text-ink">{stat.value}</dd>
-              </div>
+              </TiltCard>
             ))}
           </dl>
         </div>
@@ -100,7 +103,7 @@ export default function Home() {
             {categories.map((category) => {
               const items = articlesByCategory(category.slug);
               return (
-                <div key={category.slug} className="rounded-2xl border border-border bg-white p-6 shadow-card sm:p-7">
+                <TiltCard key={category.slug} className="rounded-2xl border border-border bg-white p-6 shadow-card sm:p-7">
                   <div className="flex items-center gap-3">
                     <span
                       className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xl"
@@ -140,7 +143,7 @@ export default function Home() {
                       <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </Link>
-                </div>
+                </TiltCard>
               );
             })}
           </div>

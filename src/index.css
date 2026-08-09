@@ -47,4 +47,25 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white px-6 py-3.5 text-base font-semibold text-ink transition-colors hover:border-brand-500 hover:text-brand-700 min-h-[48px];
   }
+
+  .hero-orb-spin {
+    animation: orb-spin 50s linear infinite;
+  }
+
+  .hero-orb-spin-reverse {
+    animation: orb-spin 65s linear infinite reverse;
+  }
+}
+
+@keyframes orb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb-spin,
+  .hero-orb-spin-reverse {
+    animation: none;
+  }
 }
