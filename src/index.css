@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* Baseline readable size; audit flagged small mobile text as a Critical
+       typography risk, so the floor here is deliberately generous. */
+    font-size: 17px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: theme("fontFamily.body");
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: theme("fontFamily.display");
+    line-height: 1.15;
+  }
+
+  ::selection {
+    background: theme("colors.brand.100");
+    color: theme("colors.brand.900");
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.brand.500");
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-base font-semibold text-white shadow-card transition-colors hover:bg-brand-700 active:bg-brand-700 min-h-[48px];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white px-6 py-3.5 text-base font-semibold text-ink transition-colors hover:border-brand-500 hover:text-brand-700 min-h-[48px];
+  }
+}
