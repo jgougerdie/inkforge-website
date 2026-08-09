@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
+import { useAuth } from "@/context/AuthContext";
 
 const navLinks = [
   { label: "Categories", href: "/#categories" },
@@ -10,6 +11,7 @@ const navLinks = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { isLoggedIn, name, logout } = useAuth();
 
   useEffect(() => {
     setOpen(false);
@@ -30,9 +32,26 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <Link to="/blog" className="btn-primary ml-2 !px-5 !py-2.5 text-[15px]">
+          <Link to="/blog" className="rounded-lg px-3 py-2 text-[15px] font-medium text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink">
             All Articles
           </Link>
+
+          {isLoggedIn ? (
+            <span className="ml-2 flex items-center gap-3">
+              <span className="text-[14px] text-ink-muted">Hi, {name}</span>
+              <button
+                type="button"
+                onClick={logout}
+                className="rounded-lg px-3 py-2 text-[15px] font-medium text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink"
+              >
+                Log out
+              </button>
+            </span>
+          ) : (
+            <Link to="/login" className="btn-primary ml-2 !px-5 !py-2.5 text-[15px]">
+              Log in
+            </Link>
+          )}
         </nav>
 
         <button
@@ -66,9 +85,25 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <Link to="/blog" className="btn-primary mt-1 w-full">
+            <Link
+              to="/blog"
+              className="rounded-lg px-3 py-3 text-base font-medium text-ink-soft hover:bg-paper-soft hover:text-ink"
+            >
               All Articles
             </Link>
+
+            {isLoggedIn ? (
+              <>
+                <span className="px-3 py-2 text-sm text-ink-muted">Signed in as {name}</span>
+                <button type="button" onClick={logout} className="btn-secondary mt-1 w-full">
+                  Log out
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="btn-primary mt-1 w-full">
+                Log in
+              </Link>
+            )}
           </div>
         </nav>
       )}

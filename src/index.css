@@ -69,3 +69,49 @@
     animation: none;
   }
 }
+
+/* Orbit ring: a circular sweep flattened into an ellipse via scaleY, giving
+   the pills a 3D-looking orbital path. Each pill counter-rotates (and
+   un-squishes) to stay upright and legible as it travels. */
+.orbit-plane {
+  transform: scaleY(0.7);
+}
+
+.orbit-arm {
+  animation: orbit-spin var(--orbit-duration) linear infinite;
+  animation-delay: var(--orbit-delay);
+}
+
+.orbit-card {
+  animation: orbit-counter-spin var(--orbit-duration) linear infinite;
+  animation-delay: var(--orbit-delay);
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-counter-spin {
+  from {
+    transform: rotate(0deg) scaleY(1.4286);
+  }
+  to {
+    transform: rotate(-360deg) scaleY(1.4286);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-arm {
+    animation: none;
+    transform: rotate(var(--orbit-angle));
+  }
+  .orbit-card {
+    animation: none;
+    transform: rotate(calc(var(--orbit-angle) * -1)) scaleY(1.4286);
+  }
+}
