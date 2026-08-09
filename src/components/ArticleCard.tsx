@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import type { Article } from "@/data/types";
 import { getCategory } from "@/data/categories";
 import CategoryBadge from "./CategoryBadge";
+import { useTilt } from "@/hooks/useTilt";
 
 interface ArticleCardProps {
   article: Article;
@@ -9,12 +10,22 @@ interface ArticleCardProps {
 
 export default function ArticleCard({ article }: ArticleCardProps) {
   const category = getCategory(article.category);
+  const tilt = useTilt<HTMLAnchorElement>();
 
   return (
     <Link
+      ref={tilt.ref as React.RefObject<HTMLAnchorElement>}
       to={`/article/${article.slug}`}
-      className="group flex flex-col rounded-2xl border border-border bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-card-hover sm:p-6"
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
+      style={{ ...tilt.style, transformStyle: "preserve-3d" }}
+      className="group relative isolate flex flex-col overflow-hidden rounded-2xl border border-border bg-white p-5 shadow-card transition-[border-color,box-shadow] duration-200 hover:border-brand-400 hover:shadow-card-hover sm:p-6"
     >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-10"
+        style={tilt.glareStyle}
+      />
       <CategoryBadge category={category} size="sm" />
       <h3 className="mt-3.5 text-xl font-bold leading-snug text-ink group-hover:text-brand-700">
         {article.title}
