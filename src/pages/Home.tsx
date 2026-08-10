@@ -7,6 +7,7 @@ import TrustRow from "@/components/TrustRow";
 import TiltCard from "@/components/TiltCard";
 import HeroOrb from "@/components/HeroOrb";
 import OrbitRing from "@/components/OrbitRing";
+import PageMeta from "@/components/PageMeta";
 
 const keywordColor: Record<string, string> = {
   "global marketing": "#4338CA",
@@ -19,9 +20,10 @@ export default function Home() {
   const featured = categories.map((c) => articlesByCategory(c.slug)[0]).filter(Boolean);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Header's "Categories"/"Featured" links land here as ?scrollTo=<id> (not a
-  // native #hash anchor, since HashRouter already owns the URL hash on GitHub
-  // Pages) — scroll to the matching section once, then drop the param.
+  // Header's "Categories"/"Featured" links land here as ?scrollTo=<id> —
+  // a query param rather than a native #hash anchor so it can't collide with
+  // the router's own URL handling. Scroll to the matching section once, then
+  // drop the param.
   useEffect(() => {
     const target = searchParams.get("scrollTo");
     if (!target) return;
@@ -32,6 +34,11 @@ export default function Home() {
 
   return (
     <>
+      <PageMeta
+        title="Sharpline — Business articles that respect your time"
+        description="Sharp, no-fluff business articles on global marketing, tax strategy, personal growth, and financial management."
+      />
+
       {/* Hero — single clear headline + one primary action, sized and spaced
           per the audit's Fix #1 (56px/28px H1, action within first 600px). */}
       <section className="container-page relative flex flex-col items-center overflow-hidden pb-16 pt-[72px] text-center sm:pb-24">

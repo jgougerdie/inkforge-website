@@ -1,17 +1,19 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
-// HashRouter (not BrowserRouter) because this is deployed to GitHub Pages,
-// a static host with no server-side rewrites for client-side routes. If this
-// ever moves to a host that supports rewrites (Vercel, Netlify, Cloudflare
-// Pages), switch back to BrowserRouter for clean URLs.
+// BrowserRouter with clean URLs, made to work on GitHub Pages (a static host
+// with no server-side rewrites) via the well-known 404.html redirect trick —
+// see public/404.html and the decode script in index.html. Clean, real paths
+// are what let Google actually crawl and index individual articles; a prior
+// version used HashRouter (#/article/...), which search engines don't index
+// as separate pages.
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <HashRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </StrictMode>,
 );

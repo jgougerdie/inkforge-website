@@ -6,8 +6,6 @@ import ArticleContent from "@/components/ArticleContent";
 import PageMeta from "@/components/PageMeta";
 import { useAuth } from "@/context/AuthContext";
 
-const FREE_BLOCK_COUNT = 3;
-
 export default function Article() {
   const { slug = "" } = useParams();
   const article = getArticle(slug);
@@ -20,12 +18,18 @@ export default function Article() {
     .filter((a) => a.slug !== article.slug)
     .slice(0, 3);
 
-  const isGated = !isLoggedIn && article.content.length > FREE_BLOCK_COUNT;
-  const visibleBlocks = isGated ? article.content.slice(0, FREE_BLOCK_COUNT) : article.content;
+  // Hard gate: no free preview. Title/dek/meta stay visible so the article is
+  // still discoverable and shareable, but none of the body renders until login.
+  const isGated = !isLoggedIn;
+  const visibleBlocks = isGated ? [] : article.content;
 
   return (
     <>
-      <PageMeta title={`${article.title} — Sharpline`} description={article.excerpt} />
+      <PageMeta
+        title={`${article.title} — Sharpline`}
+        description={article.excerpt}
+        path={`/article/${article.slug}`}
+      />
 
       <article>
         <div className="container-page max-w-prose pb-4 pt-8">
@@ -65,32 +69,25 @@ export default function Article() {
           </div>
         </header>
 
-        <div className="container-page relative max-w-prose pb-16">
-          <ArticleContent blocks={visibleBlocks} />
-
-          {isGated && (
-            <div className="relative -mt-16 pt-16">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 -top-16 h-16 bg-gradient-to-b from-transparent to-white"
-              />
-              <div className="flex flex-col items-center rounded-2xl border border-border bg-paper-soft px-6 py-10 text-center sm:px-10">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-100 text-xl" aria-hidden="true">
-                  🔒
-                </span>
-                <h2 className="mt-4 text-xl font-bold text-ink">Log in to keep reading</h2>
-                <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-muted">
-                  You've hit the free preview. Log in — free, takes five seconds — to read the rest of "
-                  {article.title}."
-                </p>
-                <Link
-                  to={`/login?redirect=${encodeURIComponent(`/article/${article.slug}`)}`}
-                  className="btn-primary mt-6"
-                >
-                  Log in and keep reading
-                </Link>
-              </div>
+        <div className="container-page max-w-prose pb-16">
+          {isGated ? (
+            <div className="flex flex-col items-center rounded-2xl border border-border bg-paper-soft px-6 py-12 text-center sm:px-10">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-100 text-xl" aria-hidden="true">
+                🔒
+              </span>
+              <h2 className="mt-4 text-xl font-bold text-ink">Log in to read this article</h2>
+              <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-ink-muted">
+                Free, takes five seconds — log in to read "{article.title}."
+              </p>
+              <Link
+                to={`/login?redirect=${encodeURIComponent(`/article/${article.slug}`)}`}
+                className="btn-primary mt-6"
+              >
+                Log in and read
+              </Link>
             </div>
+          ) : (
+            <ArticleContent blocks={visibleBlocks} />
           )}
         </div>
       </article>

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { notifyLogin } from "@/lib/notifyLogin";
 import Logo from "@/components/Logo";
 import PageMeta from "@/components/PageMeta";
 
@@ -16,12 +17,13 @@ export default function Login() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     login(name.trim() || email.trim() || "Reader");
+    notifyLogin(name.trim(), email.trim());
     navigate(redirect);
   }
 
   return (
     <>
-      <PageMeta title="Log in — Sharpline" />
+      <PageMeta title="Log in — Sharpline" path="/login" noindex />
       <section className="container-page flex min-h-[70vh] flex-col items-center justify-center py-16">
         <div className="mb-8">
           <Logo />
@@ -72,7 +74,8 @@ export default function Login() {
           </form>
 
           <p className="mt-5 text-center text-xs leading-relaxed text-ink-muted">
-            This is a demo gate, not a real account system — nothing is verified or stored beyond your browser.
+            This is a demo gate, not a real account system — no password is checked. Your name and email may be
+            used only to let the site owner know a reader logged in.
           </p>
         </div>
 
