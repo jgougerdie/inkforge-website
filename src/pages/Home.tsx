@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { categories } from "@/data/categories";
 import { articlesByCategory } from "@/data/articles";
@@ -8,6 +8,7 @@ import TiltCard from "@/components/TiltCard";
 import HeroOrb from "@/components/HeroOrb";
 import OrbitRing from "@/components/OrbitRing";
 import PageMeta from "@/components/PageMeta";
+import VideoTourModal from "@/components/VideoTourModal";
 
 const keywordColor: Record<string, string> = {
   "global marketing": "#4338CA",
@@ -19,6 +20,7 @@ const keywordColor: Record<string, string> = {
 export default function Home() {
   const featured = categories.map((c) => articlesByCategory(c.slug)[0]).filter(Boolean);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [tourOpen, setTourOpen] = useState(false);
 
   // Header's "Categories"/"Featured" links land here as ?scrollTo=<id> —
   // a query param rather than a native #hash anchor so it can't collide with
@@ -78,6 +80,19 @@ export default function Home() {
             <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
+
+        <button
+          type="button"
+          onClick={() => setTourOpen(true)}
+          className="mt-4 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-[15px] font-medium text-ink-muted transition-colors hover:text-ink"
+        >
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-paper-soft" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+          Watch the 25-second tour
+        </button>
         </div>
 
         <div className="relative mt-10 w-full border-t border-border pt-8">
@@ -213,6 +228,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <VideoTourModal open={tourOpen} onClose={() => setTourOpen(false)} />
     </>
   );
 }
