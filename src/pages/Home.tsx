@@ -5,6 +5,7 @@ import ArticleCard from "@/components/ArticleCard";
 import TrustRow from "@/components/TrustRow";
 import TiltCard from "@/components/TiltCard";
 import HeroOrb from "@/components/HeroOrb";
+import OrbitRing from "@/components/OrbitRing";
 
 const keywordColor: Record<string, string> = {
   "global marketing": "#4338CA",
@@ -20,8 +21,12 @@ export default function Home() {
     <>
       {/* Hero — single clear headline + one primary action, sized and spaced
           per the audit's Fix #1 (56px/28px H1, action within first 600px). */}
-      <section className="container-page relative flex flex-col items-center pb-16 pt-[72px] text-center sm:pb-24">
+      <section className="container-page relative flex flex-col items-center overflow-hidden pb-16 pt-[72px] text-center sm:pb-24">
         <HeroOrb />
+        <OrbitRing />
+        {/* Positioned so this whole block paints above the absolutely-positioned
+            (but unpositioned-z-index) orbit ring, regardless of DOM order. */}
+        <div className="relative flex flex-col items-center">
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-paper-soft px-4 py-1.5 text-sm font-medium text-ink-muted">
           <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />
           Business articles that respect your time
@@ -53,8 +58,9 @@ export default function Home() {
             <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
+        </div>
 
-        <div className="mt-10 w-full border-t border-border pt-8">
+        <div className="relative mt-10 w-full border-t border-border pt-8">
           <TrustRow />
         </div>
       </section>
