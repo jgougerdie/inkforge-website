@@ -4,6 +4,7 @@ import { getCategory } from "@/data/categories";
 import CategoryBadge from "@/components/CategoryBadge";
 import ArticleContent from "@/components/ArticleContent";
 import PageMeta from "@/components/PageMeta";
+import ArticleJsonLd from "@/components/ArticleJsonLd";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Article() {
@@ -30,6 +31,7 @@ export default function Article() {
         description={article.excerpt}
         path={`/article/${article.slug}`}
       />
+      <ArticleJsonLd article={article} categoryName={category.name} />
 
       <article>
         <div className="container-page max-w-prose pb-4 pt-8">
