@@ -25,7 +25,11 @@ export default function Article() {
 
   return (
     <>
-      <PageMeta title={`${article.title} — Sharpline`} description={article.excerpt} />
+      <PageMeta
+        title={`${article.title} — Sharpline`}
+        description={article.excerpt}
+        path={`/article/${article.slug}`}
+      />
 
       <article>
         <div className="container-page max-w-prose pb-4 pt-8">

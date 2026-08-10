@@ -9,6 +9,21 @@
       name="description"
       content="Sharpline — sharp, no-fluff business articles on global marketing, tax strategy, personal growth, and financial management for business owners who value substance over noise."
     />
+    <link rel="canonical" href="https://jgougerdie.github.io/inkforge-website/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sharpline" />
+    <meta property="og:title" content="Sharpline — Business articles that respect your time" />
+    <meta
+      property="og:description"
+      content="Sharp, no-fluff business articles on global marketing, tax strategy, personal growth, and financial management."
+    />
+    <meta property="og:url" content="https://jgougerdie.github.io/inkforge-website/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Sharpline — Business articles that respect your time" />
+    <meta
+      name="twitter:description"
+      content="Sharp, no-fluff business articles on global marketing, tax strategy, personal growth, and financial management."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,6 +31,23 @@
       rel="stylesheet"
     />
     <title>Sharpline — Business articles that respect your time</title>
+    <script type="text/javascript">
+      // Counterpart to public/404.html's redirect: decode the real path back
+      // out of the query string before the router boots, so it sees the
+      // clean URL the visitor actually requested.
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(null, "", l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
   </head>
   <body class="bg-paper text-ink antialiased">
     <div id="root"></div>

@@ -23,7 +23,7 @@ export default function Login() {
 
   return (
     <>
-      <PageMeta title="Log in — Sharpline" />
+      <PageMeta title="Log in — Sharpline" path="/login" noindex />
       <section className="container-page flex min-h-[70vh] flex-col items-center justify-center py-16">
         <div className="mb-8">
           <Logo />

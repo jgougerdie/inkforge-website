@@ -36,7 +36,11 @@ export default function Blog() {
 
   return (
     <>
-      <PageMeta title="All Articles — Sharpline" description="Sharp, no-fluff business articles on global marketing, tax strategy, personal growth, and financial management." />
+      <PageMeta
+        title="All Articles — Sharpline"
+        description="Sharp, no-fluff business articles on global marketing, tax strategy, personal growth, and financial management."
+        path="/blog"
+      />
 
       <section className="container-page pb-8 pt-14 text-center sm:pt-20">
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-paper-soft px-4 py-1.5 text-sm font-medium text-ink-muted">
