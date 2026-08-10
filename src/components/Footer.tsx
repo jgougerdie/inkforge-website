@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { categories } from "@/data/categories";
 
@@ -18,13 +19,13 @@ export default function Footer() {
           <ul className="mt-4 flex flex-col gap-3">
             {categories.map((c) => (
               <li key={c.slug}>
-                <a
-                  href={`/blog?category=${c.slug}`}
+                <Link
+                  to={`/blog?category=${c.slug}`}
                   className="inline-flex items-center gap-2 text-[15px] text-ink-soft hover:text-brand-700"
                 >
                   <span aria-hidden="true">{c.emoji}</span>
                   {c.name}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

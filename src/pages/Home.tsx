@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { categories } from "@/data/categories";
 import { articlesByCategory } from "@/data/articles";
 import ArticleCard from "@/components/ArticleCard";
@@ -16,6 +17,18 @@ const keywordColor: Record<string, string> = {
 
 export default function Home() {
   const featured = categories.map((c) => articlesByCategory(c.slug)[0]).filter(Boolean);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Header's "Categories"/"Featured" links land here as ?scrollTo=<id> (not a
+  // native #hash anchor, since HashRouter already owns the URL hash on GitHub
+  // Pages) — scroll to the matching section once, then drop the param.
+  useEffect(() => {
+    const target = searchParams.get("scrollTo");
+    if (!target) return;
+    document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+    searchParams.delete("scrollTo");
+    setSearchParams(searchParams, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   return (
     <>

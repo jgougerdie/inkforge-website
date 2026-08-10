@@ -4,8 +4,8 @@ import Logo from "./Logo";
 import { useAuth } from "@/context/AuthContext";
 
 const navLinks = [
-  { label: "Categories", href: "/#categories" },
-  { label: "Featured", href: "/#featured" },
+  { label: "Categories", to: "/?scrollTo=categories" },
+  { label: "Featured", to: "/?scrollTo=featured" },
 ];
 
 export default function Header() {
@@ -24,13 +24,13 @@ export default function Header() {
 
         <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
-              href={link.href}
+              to={link.to}
               className="rounded-lg px-3 py-2 text-[15px] font-medium text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <Link to="/blog" className="rounded-lg px-3 py-2 text-[15px] font-medium text-ink-soft transition-colors hover:bg-paper-soft hover:text-ink">
             All Articles
@@ -77,13 +77,13 @@ export default function Header() {
         <nav className="border-t border-border bg-white sm:hidden" aria-label="Primary mobile">
           <div className="container-page flex flex-col gap-1 py-3">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.to}
                 className="rounded-lg px-3 py-3 text-base font-medium text-ink-soft hover:bg-paper-soft hover:text-ink"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
             <Link
               to="/blog"
